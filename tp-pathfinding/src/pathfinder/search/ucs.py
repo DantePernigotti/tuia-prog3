@@ -26,4 +26,21 @@ class UniformCostSearch:
         # TODO Complete the rest!!
         # ...
 
+        frontera = PriorityQueueFrontier()
+        frontera.add(root, root.cost)
+
+        while True:
+            if frontera.is_empty():
+                return NoSolution
+            n = frontera.pop()
+            if grid.objective_test(n.state):
+                return Solution(n, reached)
+            for movimiento in grid.actions(n.state):
+                s = grid.result(n.state, movimiento)
+                c = n.cost + grid.individual_cost(n.state, movimiento)
+                if s not in reached or c < reached[s]: 
+                    n_ = Node("", s, c, n, movimiento)
+                    reached[s] = c
+                    frontera.add(n_, c)
+
         return NoSolution(reached)
