@@ -111,3 +111,13 @@ class Grid:
 
     def __repr__(self) -> str:
         return f"Grid([[...], ...], {self.initial}, {self.end})"
+
+
+
+    def h(self, nodo:Node):
+        x_actual, y_actual = nodo.state
+        x_obj, y_obj = self.end
+
+        return abs(x_actual - x_obj) + abs(y_actual - y_obj)
+
+        
